@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frieren: Beyond The Journey's End</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-wrapper">
+        <div class="container">
+          <a href="#" class="brand-logo">
+            <img src="img/logoo.png" alt="" />
+          </a>
+          <a href="#" class="sidenav-trigger" data-target="mobile-menu"
+            ><i class="material-icons">menu</i>
+          </a>
+
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li>
+              <a href="characters.html"><p>CHARACTERS</p></a>
+            </li>
+            <li>
+              <a href="story.html"><p>STORY</p></a>
+            </li>
+            <li>
+              <a href="music.html"><p>MUSIC</p></a>
+            </li>
+            <li>
+              <a href="map.html"><p>MAP</p></a>
+            </li>
+          </ul>
+          <ul class="sidenav transparent" id="mobile-menu">
+            <li>
+              <a href="characters.html"><p>CHARACTERS</p></a>
+            </li>
+            <li>
+              <a href="story.html"><p>STORY</p></a>
+            </li>
+            <li>
+              <a href="music.html"><p>MUSIC</p></a>
+            </li>
+            <li>
+              <a href="map.html"><p>MAP</p></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container center title-container">
+        <img src="img/1000.png  " class="responsive-img title-" />
+        <div class="container">
+          <a href="#sypnosis"
+            ><i class="material-icons circle white-text"
+              >keyboard_arrow_down</i
+            ></a
+          >
+        </div>
+      </div>
+      <div class="vidbackground">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          id="backvid"
+          class="responsive-video"
+        >
+          <source src="img/BACKVID.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <section class="section container scrollspy valign-wrapper" id="sypnosis">
+        <div class="container inside valign-wrapper">
+          <p class="center">
+            The demon king has been defeated, and the victorious hero party
+            returns home before disbanding. The four—mage <span>Frieren</span>,
+            hero <span>Himmel</span>, priest <span>Heiter</span>, and warrior
+            <span>Eisen</span>—reminisce about their decade-long journey as the
+            moment to bid each other farewell arrives. But the passing of time
+            is different for elves, thus Frieren witnesses her companions slowly
+            pass away one by one. Before his death, Heiter manages to foist a
+            young human apprentice called Fern onto Frieren. Driven by the elf's
+            passion for collecting a myriad of magic spells, the pair embarks on
+            a seemingly aimless journey, revisiting the places that the heroes
+            of yore had visited. Along their travels, Frieren slowly confronts
+            her regrets of missed opportunities to form deeper bonds with her
+            now-deceased comrades.
+          </p>
+        </div>
+      </section>
+    </header>
+  </body>
+</html>
+
+<style>
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    font-family: "EB Garamond", serif;
+    color: white;
+  }
+  .title-container {
+    height: 100vh;
+  }
+
+  .title-container i {
+    margin-top: 250px;
+    border: 1px solid white;
+    font-size: 40px;
+    text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 20px;
+  }
+  .section {
+    backdrop-filter: blur(2px);
+    height: 100vh;
+  }
+  .inside {
+    margin: 30px;
+    height: 80%;
+    background-image: url(img/bord1.png), url(img/bord2.png), url(img/bord3.png),
+      url(img/bord4.png);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 20% 35%;
+    background-repeat: no-repeat;
+    padding: 200px;
+    border: 2px double #ae6d13;
+    background-color: #0d0016c8;
+  }
+  span {
+    text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 20px;
+  }
+  .inside p {
+    font-size: 20px;
+  }
+  section.container {
+    width: 80%;
+    height: 100vh;
+  }
+  .sidenav {
+    padding-top: 64px;
+  }
+  @media screen and (max-width: 992px) {
+    .inside {
+      padding: 20px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .inside p {
+      font-size: 14px;
+    }
+  }
+</style>
+<script src="js/jquery-3.7.1.js"></script>
+<script src="js/materialize.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".sidenav").sidenav();
+    $(".scrollspy").scrollSpy();
+  });
+</script>

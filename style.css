@@ -1,0 +1,57 @@
+nav .brand-logo img {
+  width: 180px;
+}
+ul.left {
+  margin-left: 200px;
+}
+ul.right li {
+  margin: 0 20px;
+}
+nav p {
+  margin: 0;
+  color: white;
+  text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 20px;
+}
+nav {
+  background-color: rgba(0, 0, 0, 0.571);
+}
+.container .title- {
+  width: 60%;
+}
+.vidbackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.vidbackground video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+.sidenav {
+  padding-top: 64px;
+}
+.current {
+  border-bottom: 2px solid white;
+}
+.blured {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+@media screen and (max-width: 992px) {
+  header {
+    min-height: 500px;
+  }
+}

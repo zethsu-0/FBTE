@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frieren: Beyond The Journey's End</title>
+  </head>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      color: white;
+      background-color: black;
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      background-image: url(img/backw.jpg);
+      overflow-y: visible !important;
+      font-family: "EB Garamond", serif;
+    }
+
+    .row img {
+      width: 200px;
+      height: 200px;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    .details {
+      height: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .before,
+    .after {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+
+    .char {
+      height: 340px;
+      position: relative;
+    }
+    .char img {
+      width: 100%;
+      height: 100%;
+    }
+    .before .profile {
+      border-bottom: 2px solid #ae6d13;
+      height: 90%;
+    }
+
+    .after .profile {
+      position: relative;
+      top: -10px;
+      height: 70%;
+    }
+    .characters li.col {
+      padding: 20px;
+      margin: 10px;
+    }
+    .box {
+      background-image: url(img/bord1.png), url(img/bord2.png),
+        url(img/bord3.png), url(img/bord4.png);
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-size: 50% 35%;
+      background-repeat: no-repeat;
+      padding: 20px;
+    }
+    .after {
+      margin-top: 10px;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 2;
+    }
+    .after img {
+      width: 200px;
+    }
+    .char:hover .before {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .char:hover .after {
+      opacity: 1;
+      visibility: visible;
+    }
+    .char:hover .after img {
+      transform: scale(1.4);
+    }
+
+    .after p {
+      margin: 0;
+      font-size: 2em;
+      border-bottom: 2px solid #ae6d13;
+    }
+
+    .characters p {
+      text-align: center;
+      color: white;
+    }
+    section.container {
+      padding: 20px;
+      margin-top: 50px;
+      background-color: #0d0016c8;
+      backdrop-filter: blur(2px);
+      border: 1px double #ae6d13;
+    }
+    h2,
+    .details p {
+      font-weight: bold;
+    }
+    .tabs,
+    .tabs .tab {
+      height: 55px;
+    }
+    .tab {
+      border-radius: 20px;
+    }
+    .modal {
+      top: 0 !important;
+      width: 100%;
+    }
+    .modal img {
+      width: 340px;
+      height: 420px;
+    }
+    .infos {
+      margin-top: 20px;
+      padding: 40px !important;
+    }
+
+    .modal .modal-footer {
+      position: absolute;
+      width: 50px !important;
+      background-color: transparent;
+    }
+    .modal {
+      background-color: #000000e6;
+    }
+    i.small,
+    .modal,
+    h2,
+    p {
+      color: white;
+      text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 20px;
+    }
+    .modal-overlay {
+      display: none !important;
+    }
+    td {
+      width: 20px;
+    }
+    .brand-logo {
+      height: 130px;
+    }
+    .modal::-webkit-scrollbar {
+      display: none;
+    }
+    td {
+      border-bottom: 1px solid #ae6d13;
+    }
+    .btn i {
+      color: #ae6d13;
+    }
+    .blured {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      backdrop-filter: blur(5px);
+      z-index: 2;
+    }
+
+    @media screen and (max-width: 992px) {
+      li.col {
+        height: 500px;
+        margin-left: 20px !important;
+      }
+      .char {
+        height: 100%;
+      }
+      .modal .row .col {
+        float: none;
+      }
+      body {
+        overflow: visible !important;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .char:hover .after img {
+        transform: scale(1.2);
+      }
+      .after img {
+        width: 300px;
+      }
+      li.col {
+        margin-left: auto !important;
+      }
+    }
+  </style>
+  <body>
+    <nav class="nav-wrapper">
+      <div class="container">
+        <a href="index.html" class="brand-logo">
+          <img src="img/logoo.png" alt="" />
+        </a>
+        <a href="#" class="sidenav-trigger" data-target="mobile-menu"
+          ><i class="material-icons">menu</i>
+        </a>
+
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li class="current">
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html"><p>MUSIC</p></a>
+          </li>
+          <li>
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+        <ul class="sidenav transparent" id="mobile-menu">
+          <li>
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html"><p>MUSIC</p></a>
+          </li>
+          <li>
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="vidbackground">
+      <div class="blured"></div>
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        id="backvid"
+        class="responsive-video"
+      >
+        <source src="img/BACKVID.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <section class="container scrollspy">
+      <div class="col s12 l6 characters">
+        <div class="col s12" id="hero-party">
+          <h2 class="center">HERO PARTY</h2>
+          <div class="character">
+            <ul class="row character center-align">
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal1" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/frieren.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/frieren4.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>FRIEREN</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal1" class="modal">
+                  <div class="modal-content center z-depth-4">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>FRIEREN</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/frieren4.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>1000+</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Mage</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Elf</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Staff</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Immense mana output</li>
+                                  <li>Mana concealment</li>
+                                  <li>
+                                    Restraint and Hypnosis Magic resistance
+                                  </li>
+                                  <li>Offensive magic: Zoltraak</li>
+                                  <li>Defensive magic</li>
+                                  <li>Dispelling magic</li>
+                                  <li>Field of Flowers</li>
+                                  <li>
+                                    Spell that shuts the door of a treasure
+                                    vault at the risk of your life
+                                  </li>
+                                  <li>Destructive Lightning: Judradjim</li>
+                                  <li>Hellfire Summoning: Vollzanbel</li>
+                                  <li>Spell that creates a black hole</li>
+                                  <li>The Height of Magic</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal2" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/himmel.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/himmel3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>HIMMEL</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal2" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>HIMMEL</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/himmel3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>
+                                <ul>
+                                  <li>~26 (pre-timeskip)</li>
+                                  <li>~76 (pre-timeskip)</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Hero</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Human</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Sword</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>Hero Sword(replica)</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal3" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/heiter.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/heiter3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>HEITER</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal3" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>HEITER</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/heiter3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Rank</td>
+                              <td>Bishop</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Priest</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Human</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Book of Scriptures</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Goddess's Magic</li>
+                                  <li>Healing Magic</li>
+                                  <li>Three Spear of the Goddess</li>
+                                  <li>Curse Resistance</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal4" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/eisen.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/eisen3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>EISEN</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal4" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>EISEN</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/eisen3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>100+</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Warrior</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Dwarf</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Double-headed Axe</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Superhuman durability</li>
+                                  <li>Superhuman strength</li>
+                                  <li>Poison resistance</li>
+                                  <li>Axe proficiency</li>
+                                  <li>Lightning Strike</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col s12" id="frieren-party">
+          <h2 class="center">FRIEREN'S PARTY</h2>
+          <div class="character">
+            <ul class="row character">
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal5" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/frieren.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/frieren4.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>FRIEREN</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal5" class="modal">
+                  <div class="modal-content center z-depth-4">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>FRIEREN</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/frieren4.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>1000+</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Mage</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Elf</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Staff</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Offensive magic: Zoltraak</li>
+                                  <li>Defensive magic</li>
+                                  <li>Dispelling magic</li>
+                                  <li>Field of Flowers</li>
+                                  <li>
+                                    Spell that shuts the door of a treasure
+                                    vault at the risk of your life
+                                  </li>
+                                  <li>Destructive Lightning: Judradjim</li>
+                                  <li>Hellfire Summoning: Vollzanbel</li>
+                                  <li>Spell that creates a black hole</li>
+                                  <li>The Height of Magic</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal6" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/fern.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/fern3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>FERN</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal6" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>FERN</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/fern3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>19-20</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Mage</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Human</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Staff</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Mana concealment</li>
+                                  <li>Fast spell casting</li>
+                                  <li>Offensive magic: Zoltraak</li>
+                                  <li>
+                                    Spell to make clothes clean and spotless
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal7" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/stark.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/stark3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>STARK</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal7" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>STARK</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/stark3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Age</td>
+                              <td>20</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Warrior</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Human</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Double-headed Axe</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Superhuman durability</li>
+                                  <li>Superhuman strength</li>
+                                  <li>Superhuman agility</li>
+                                  <li>Quick Reflexes</li>
+                                  <li>Axe proficiency</li>
+                                  <li>Lightning Strike</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col m6 l3 s12 center box">
+                <div class="char">
+                  <a href="#modal8" class="modal-trigger">
+                    <div class="before">
+                      <div class="profile">
+                        <img src="img/sein.png" class="responsive-img" />
+                      </div>
+                    </div>
+                    <div class="after">
+                      <div class="profile">
+                        <img src="img/sein3.png" class="responsive-img" />
+                      </div>
+                      <div class="details">
+                        <p>SEIN</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div id="modal8" class="modal">
+                  <div class="modal-content center">
+                    <div class="modal-footer modal-close floating-btn center">
+                      <i class="material-icons small">arrow_back</i>
+                    </div>
+                    <h4>SEIN</h4>
+                    <div class="row center">
+                      <div class="container col l5 center">
+                        <img
+                          src="img/sein3.png"
+                          alt=""
+                          class="responsive-image center box"
+                        />
+                      </div>
+                      <div class="container">
+                        <div class="col l7 infos box center">
+                          <table class="stripped">
+                            <h5>Information</h5>
+                            <tr>
+                              <td>Alias</td>
+                              <td>Goatee Priest</td>
+                            </tr>
+                            <tr>
+                              <td>Class</td>
+                              <td>Priest</td>
+                            </tr>
+                            <tr>
+                              <td>Species</td>
+                              <td>Human</td>
+                            </tr>
+                            <tr>
+                              <td>Weapon</td>
+                              <td>Grimoire</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>
+                                <ul>
+                                  <li>Curse Resistance</li>
+                                  <li>Goddess's Magic</li>
+                                  <li>Healing Magic</li>
+                                  <li>Three Spears of the Goddess</li>
+                                  <li>Awakening Spell</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <ul class="tabs transparent center">
+          <li class="tab col s1 center">
+            <a href="#hero-party" class="btn transparent">
+              <i class="medium material-icons">arrow_back_ios</i>
+            </a>
+          </li>
+          <li class="tab col s1 offset-s10">
+            <a href="#frieren-party" class="btn transparent">
+              <i class="medium material-icons">arrow_forward_ios</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </body>
+
+  <script src="js/jquery-3.7.1.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".tabs").tabs();
+      $(".sidenav").sidenav();
+      $(".modal").modal({
+        dismissible: true,
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/materialize_another.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/daf8a1f2e8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>MUSIC</title>
+  </head>
+  <body>
+    <nav class="nav-wrapper">
+      <div class="container">
+        <a href="#" class="brand-logo">
+          <img src="img/logoo.png" alt="" />
+        </a>
+        <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+          <i class="material-icons">menu</i>
+        </a>
+
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li>
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html" class="current"><p>MUSIC</p></a>
+          </li>
+          <li>
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+        <ul class="sidenav transparent" id="mobile-menu">
+          <li>
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html"><p>MUSIC</p></a>
+          </li>
+          <li>
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="vidbackground">
+      <div class="blured"></div>
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        id="backvid"
+        class="responsive-video"
+      >
+        <source src="img/BACKVID.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="container music-cont center">
+      <div class="music-player container white-text">
+        <div class="img-cont container">
+          <img id="song-image" src="img/arc1.jpg" class="responsive-img" />
+        </div>
+        <h2 id="song-title" class="center">SUNNY</h2>
+        <p id="song-artist">Yorushika</p>
+
+        <audio id="song" autostart="0" autostart="false" preload="none">
+          <source src="img/ヨルシカ - 晴る.mp3" type="audio/mpeg" />
+        </audio>
+
+        <input type="range" value="0" id="progress" />
+        <div class="controls">
+          <button class="btn-floating btn-small teal z-depth-4 transparent">
+            <i class="fa-solid fa-backward" onclick="previousSong()"></i>
+          </button>
+          <button class="btn-floating btn-large teal z-depth-4 transparent">
+            <i class="fa-solid fa-play" onclick="Pause()" id="ctrlicon"></i>
+          </button>
+          <button
+            class="btn-floating btn-small pulse teal z-depth-4 transparent"
+          >
+            <i
+              class="fa-solid fa-forward addEventListener"
+              onclick="nextSong()"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: "EB Garamond", serif;
+  }
+  .music-cont {
+    margin-top: 20px;
+  }
+  .music-player {
+    border: 2px solid #ae6d13;
+    background-color: #0d0016c8;
+    border-radius: 20px;
+    width: 400px;
+    padding: 20px 30px;
+    text-align: center;
+  }
+  .music-player img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    border: 2px solid #ae6d13;
+  }
+  .img-cont{
+    background-image: url(img/bord1.png), url(img/bord2.png),
+        url(img/bord3.png), url(img/bord4.png);
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-size: 50% 35%;
+      background-repeat: no-repeat;
+      padding: 20px;
+      width: 250px;
+      height: 250px;
+  }
+  #progress::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.5px;
+    cursor: pointer;
+    background-color: white;
+  }
+  #progress::-webkit-slider-thumb {
+    background-color: white !important;
+    position: relative;
+    top: -2px;
+    box-shadow: 0 0 10px teal;
+  }
+  .controls button {
+    margin: 0 5px;
+  }
+  h2 {
+    margin: 20px;  
+  }
+  .music-player p {
+    font-size: 2em;
+  }
+  button,.music-player p, h2 {
+    text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
+  }
+</style>
+
+<script src="js/jquery-3.7.1.js"></script>
+<script src="js/materialize.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".sidenav").sidenav();
+  });
+
+  const songs = [
+    {
+      title: "SUNNY",
+      artist: "Yorushika",
+      src: "img/ヨルシカ - 晴る.mp3",
+      img: "img/arc1.jpg",
+    },
+    {
+      title: "THE BRAVE",
+      artist: "Yoasobi",
+      src: "img/The Brave.mp3",
+      img: "img/The Brave.jpg",
+    },
+    {
+      title: "ANYTIME ANYWHERE",
+      artist: "Milet",
+      src: "img/Anytime_Anywhere.mp3",
+      img: "img/Anytime_Anywhere.jpg",
+    },
+    {
+      title: "BLISS",
+      artist: "Milet",
+      src: "img/bliss.mp3",
+      img: "img/bliss.jpg",
+    },
+  ];
+
+  let currentIndex = 0;
+
+  const progress = document.getElementById("progress");
+  const song = document.getElementById("song");
+  const ctrlicon = document.getElementById("ctrlicon");
+  const songImage = document.getElementById("song-image");
+  const songTitle = document.getElementById("song-title");
+  const songArtist = document.getElementById("song-artist");
+
+  function loadSong(index) {
+    const currentSong = songs[index];
+    song.src = currentSong.src;
+    songImage.src = currentSong.img;
+    songTitle.textContent = currentSong.title;
+    songArtist.textContent = currentSong.artist;
+    progress.value = 0;
+    song.pause(); // Ensure the song doesn't autoplay
+    ctrlicon.classList.remove("fa-pause");
+    ctrlicon.classList.add("fa-play");
+  }
+
+  function Pause() {
+    if (ctrlicon.classList.contains("fa-pause")) {
+      song.pause();
+      ctrlicon.classList.remove("fa-pause");
+      ctrlicon.classList.add("fa-play");
+    } else {
+      song.play();
+      ctrlicon.classList.add("fa-pause");
+      ctrlicon.classList.remove("fa-play");
+    }
+  }
+
+  function nextSong() {
+    currentIndex = (currentIndex + 1) % songs.length;
+    loadSong(currentIndex);
+  }
+
+  function previousSong() {
+    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+    loadSong(currentIndex);
+  }
+
+  song.addEventListener("timeupdate", () => {
+    progress.value = song.currentTime;
+    progress.max = song.duration;
+  });
+
+  progress.addEventListener("change", () => {
+    song.currentTime = progress.value;
+    song.play();
+    ctrlicon.classList.add("fa-pause");
+    ctrlicon.classList.remove("fa-play");
+  });
+
+  // Initial load
+  loadSong(currentIndex);
+</script>

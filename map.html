@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <title>Frieren: Beyond The Journey's End</title>
+  </head>
+  <body>
+    <nav class="nav-wrapper">
+      <div class="container">
+        <a href="index.html" class="brand-logo">
+          <img src="img/logoo.png" alt="" />
+        </a>
+        <a href="#" class="sidenav-trigger" data-target="mobile-menu"
+          ><i class="material-icons">menu</i>
+        </a>
+
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li>
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html"><p>MUSIC</p></a>
+          </li>
+          <li class="current">
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+        <ul class="sidenav transparent" id="mobile-menu">
+          <li>
+            <a href="characters.html"><p>CHARACTERS</p></a>
+          </li>
+          <li>
+            <a href="story.html"><p>STORY</p></a>
+          </li>
+          <li>
+            <a href="music.html"><p>MUSIC</p></a>
+          </li>
+          <li>
+            <a href="map.html"><p>MAP</p></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="vidbackground">
+      <div class="blured"></div>
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        id="backvid"
+        class="responsive-video"
+      >
+        <source src="img/BACKVID.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="container world-map center">
+      <div class="container map" id="map"></div>
+    </div>
+  </body>
+</html>
+<style>
+  body {
+    font-family: "EB Garamond", serif;
+  }
+  .world-map {
+    margin-top: 20px;
+  }
+  .world-map img {
+    width: 50%;
+  }
+  #map {
+    height: 500px;
+    width: 100%;
+    border: 2px solid #ae6d13;
+    background-color: #0d0016c8;
+  }
+
+  .leaflet-bottom {
+    display: none;
+  }
+</style>
+<script src="js/jquery-3.7.1.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".sidenav").sidenav();
+  });
+</script>
+<script>
+  // Image dimensions (in pixels)
+  const imageWidth = 1024; // Replace with your image width
+  const imageHeight = 768; // Replace with your image height
+
+  // Calculate the bounds of the image
+  const imageBounds = [
+    [0, 0],
+    [imageHeight, imageWidth],
+  ];
+
+  // Initialize the map
+  const map = L.map("map", {
+    crs: L.CRS.Simple, // Use a simple coordinate system
+    maxZoom: 2, // Limit zoom levels
+    minZoom: -1, // Allow zooming out
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+      position: "bottomleft", // Change the position of the fullscreen button
+    },
+  });
+
+  // Fit the map to the image bounds
+  map.fitBounds(imageBounds);
+
+  // Add the image overlay
+  L.imageOverlay("img/World_map.webp", imageBounds).addTo(map); // Replace 'your-image.jpg' with your image file path
+
+  // Add a pin (marker)
+  L.marker([20, 500]) // Coordinates within the image (Y, X)
+    .addTo(map)
+    .bindPopup("This is a pin!");
+
+  map.on("enterFullscreen", function () {
+    console.log("Entered fullscreen mode");
+    alert("You are now in fullscreen mode!");
+  });
+
+  map.on("exitFullscreen", function () {
+    console.log("Exited fullscreen mode");
+    alert("You have exited fullscreen mode!");
+  });
+</script>
