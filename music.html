@@ -23,10 +23,10 @@
   <body>
     <nav class="nav-wrapper">
       <div class="container">
-        <a href="#" class="brand-logo">
+        <a href="index.html" class="brand-logo">
           <img src="img/logoo.png" alt="" />
         </a>
-        <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+        <a href="index.html" class="sidenav-trigger" data-target="mobile-menu">
           <i class="material-icons">menu</i>
         </a>
 
@@ -73,10 +73,13 @@
         <source src="img/BACKVID.mp4" type="video/mp4" />
       </video>
     </div>
+    <div class="title container">
+      <h4 class="center">Opening and Ending Music</h4>
+    </div>
     <div class="container music-cont center">
       <div class="music-player container white-text">
         <div class="img-cont container">
-          <img id="song-image" src="img/arc1.jpg" class="responsive-img" />
+          <img id="song-image" src="img/Sunny.jpg" class="responsive-img materialboxed" />
         </div>
         <h2 id="song-title" class="center">SUNNY</h2>
         <p id="song-artist">Yorushika</p>
@@ -111,6 +114,22 @@
   body {
     font-family: "EB Garamond", serif;
   }
+  .title{
+    width: 40%;
+    background-color: #00000088;
+    border: 2px solid #ae6d13;
+    background-image: url(img/bord1.png), url(img/bord2.png), url(img/bord3.png),
+      url(img/bord4.png);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 10% 55%;
+    background-repeat: no-repeat;
+    margin: 10px auto;
+  }
+  .title h4{
+    margin: 10px;
+    color: white;
+    text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
+  }
   .music-cont {
     margin-top: 20px;
   }
@@ -123,7 +142,7 @@
     text-align: center;
   }
   .music-player img {
-    width: 200px;
+    width: 100%;
     height: 200px;
     border-radius: 10px;
     border: 2px solid #ae6d13;
@@ -169,29 +188,30 @@
 <script>
   $(document).ready(function () {
     $(".sidenav").sidenav();
+    $(".materialboxed").materialbox();
   });
 
   const songs = [
     {
-      title: "SUNNY",
+      title: "Sunny",
       artist: "Yorushika",
       src: "img/ヨルシカ - 晴る.mp3",
-      img: "img/arc1.jpg",
+      img: "img/Sunny.jpg",
     },
     {
-      title: "THE BRAVE",
+      title: "The Brave",
       artist: "Yoasobi",
       src: "img/The Brave.mp3",
       img: "img/The Brave.jpg",
     },
     {
-      title: "ANYTIME ANYWHERE",
+      title: "Anytime Anywhere",
       artist: "Milet",
       src: "img/Anytime_Anywhere.mp3",
       img: "img/Anytime_Anywhere.jpg",
     },
     {
-      title: "BLISS",
+      title: "Bliss",
       artist: "Milet",
       src: "img/bliss.mp3",
       img: "img/bliss.jpg",

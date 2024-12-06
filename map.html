@@ -74,8 +74,10 @@
         <source src="img/BACKVID.mp4" type="video/mp4" />
       </video>
     </div>
-
-    <div class="container world-map center">
+    <div class="title container">
+      <h4 class="center">The world map of Frieren: Beyond Journey's End.</h4>
+    </div>
+    <div class="world-map center">
       <div class="container map" id="map"></div>
     </div>
   </body>
@@ -84,23 +86,72 @@
   body {
     font-family: "EB Garamond", serif;
   }
-  .world-map {
-    margin-top: 20px;
-  }
+
   .world-map img {
-    width: 50%;
+    width: 70%;
   }
   #map {
     height: 500px;
-    width: 100%;
-    border: 2px solid #ae6d13;
+    width: 60%;
+    height: 80vh;
+    border: 10px solid #ae6d13;
     background-color: #0d0016c8;
   }
-
   .leaflet-bottom {
     display: none;
   }
+  .leaflet-popup-content-wrapper {
+    background-color: #000000;
+  }
+  .custom-popup {
+    font-family: "EB Garamond", serif;
+    color: white;
+  }
+
+  .custom-tooltip h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: "EB Garamond", serif;
+  }
+  .title{
+    width: 55%;
+    background-color: #00000088;
+    border: 2px solid #ae6d13;
+    background-image: url(img/bord1.png), url(img/bord2.png), url(img/bord3.png),
+      url(img/bord4.png);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 10% 55%;
+    background-repeat: no-repeat;
+    margin: 10px auto;
+  }
+  .title h4{
+    margin: 10px;
+    color: white;
+    text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
+  }
+  .leaflet-tooltip {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.685);
+    border: 2px solid #ae6d13;
+    font-size: 12px;
+    border-radius: 4px;
+    top: -5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  @media only screen and (max-width: 601px) {
+    #map {
+      width: 100%;
+      height: 50vh;
+    }
+  }
+  @media only screen and (max-width: 993px) {
+    #map {
+      width: 80%;
+    }
+  }
 </style>
+
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/materialize.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -110,45 +161,654 @@
   });
 </script>
 <script>
-  // Image dimensions (in pixels)
-  const imageWidth = 1024; // Replace with your image width
-  const imageHeight = 768; // Replace with your image height
+  const imageWidth = 1224;
+  const imageHeight = 1100;
 
-  // Calculate the bounds of the image
   const imageBounds = [
     [0, 0],
     [imageHeight, imageWidth],
   ];
 
-  // Initialize the map
   const map = L.map("map", {
-    crs: L.CRS.Simple, // Use a simple coordinate system
-    maxZoom: 2, // Limit zoom levels
-    minZoom: -1, // Allow zooming out
+    crs: L.CRS.Simple,
+    maxZoom: 2,
+    minZoom: -2,
     fullscreenControl: true,
     fullscreenControlOptions: {
-      position: "bottomleft", // Change the position of the fullscreen button
+      position: "bottomleft",
     },
   });
 
-  // Fit the map to the image bounds
+  const pin1 = L.icon({
+    iconUrl: "img/pin1.png",
+    iconSize: [20, 30],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
+  const pin2 = L.icon({
+    iconUrl: "img/pin2.png",
+    iconSize: [20, 30],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+  const pin3 = L.icon({
+    iconUrl: "img/pin3.png",
+    iconSize: [20, 30],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+  const pin4 = L.icon({
+    iconUrl: "img/pin4.png",
+    iconSize: [20, 30],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+  const pin5 = L.icon({
+    iconUrl: "img/pin5.png",
+    iconSize: [20, 30],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
+  L.marker([950, 550], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Demon King's Castle</h6>
+            <p>Inhabited by the Demon King prior to his death, located at the northernmost tip of the continent, Ende. It is also the alleged location of Aureole, a place regarded as heaven or the afterlife where souls rest.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Demon King's Castle</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+
+  L.marker([920, 470], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Ende</h6>
+            <p>The northernmost region of the continent. Contains the Demon King's Castle and Aureole.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Ende</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+
+  L.marker([818, 258], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Great Tor Canyon</h6>
+            <p>The deepest canyon on the continent. It took the dwarf Gehen two centuries building a bridge over it near a village to the south and a city to the north. Visited by Frieren's Party </p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Great Tor Canyon</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([780, 248], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Lake Korridor</h6>
+            <p>A large lake located in the Northern Plateau that is said to be the biggest lake in the Northern Lands. It is bordered by an extensive mountain range to the east and west. A large commercial port town is bordered by the lake to the south.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Lake Korridor</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([810, 350], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Tür</h6>
+            <p>A commercial town in the middle of the Northern Lands, far east of Äußerst. In his search for his childhood friend, Sein is heading to Tür at the end of Chapter 35.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Tür</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([705, 280], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Äußerst</h6>
+            <p>An island city located in the middle of a lake. It is the location of the Northern Continental Magic Association and where the First-Class Mage Exam is administered.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Äußerst</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([660, 260], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Vorig</h6>
+            <p>A fortified city situated in the Northern Lands, crucial for the defense of the surrounding regions from monsters and demons. It is a stopping point before arriving at Äußerst.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Vorig</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([700, 347], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Offen Mountain Range</h6>
+            <p>While travelling through this mountain range in Chapter 36 / Episode 17, Fern falls ill and Frieren's party stays at a nearby house to recuperate. There is an icicle blossom tree slightly north</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Offen Mountain Range</h6>
+
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+
+  L.marker([660, 340], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Bande Woods</h6>
+            <p>AA dense forest situated in the Northern Lands. It contains dangerous beasts,</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Bande Woods</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([640, 330], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Appetit Region</h6>
+            <p>A region in the Northern Lands, It is a mountainous region with lush forests. It also supports a town. </p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Appetit Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([627, 340], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Schwer Mountains</h6>
+            <p>A mountainous region in the Northern Lands that receives regular snowfall. It is where the Village of the Sword is located, and where the famous Heros Blade can be found.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Schwer Mountains</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([615, 313], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Decke Region</h6>
+            <p>Situated in the Northern Lands and with rough terrain at the foot of the Schwer Mountains. It has occasional snowstorms which can be quite deadly without any shelter.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Decke Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([675, 223], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Kühl Region</h6>
+            <p>Contains forests of largely coniferous trees and flat grassy fields. Significant changes in elevation, with low-lying Grobe Basin and Äußerst. </p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Kühl Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([675, 290], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Klar Region</h6>
+            <p>A region in the Northern Lands with lush forests, roads, mountains and cliffs. It also contains a small village in which the dwarf warrior Voll lives.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Klar Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([655, 300], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Alt Woods</h6>
+            <p>A region in the Northern Lands with lush forests, roads, mountains and cliffs. It also contains a small village in which the dwarf warrior Voll lives.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Alt Woods</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([645, 280], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Raad Region</h6>
+            <p>A region in the Northern Lands with lush forests, roads, mountains and cliffs. It also contains a small village in which the dwarf warrior Voll lives.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Raad Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([625, 270], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Laub Hills</h6>
+            <p>A forested region in the Northern Lands with particularly hilly terrain. In it is a small village, which at the arrival of Frieren's Party was subject to a curse from a Chaos Flower</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Laub Hills</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([685, 337], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Rohr Road</h6>
+            <p>A route in the Northern Lands, which has connections to many towns including Äußerst. Frieren's Party stops at a nearby town, where Sein gathers clues on his childhood friend's whereabouts.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Rohr Road</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([595, 310], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Graf Granat's Domain</h6>
+            <p>A fortified city under the rule of the nobleman Graf Granat. It is protected by a powerful defensive barrier that has kept demons at bay for a millenium.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Graf Granat's Domain</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([584, 320], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Eng Road</h6>
+            <p>A passageway commonly used by merchants traveling in the Northern Lands. It leads to a town which has a festival in honor of the Hero Party liberating it.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Eng Road</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([587, 342], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Waal</h6>
+            <p>A passageway commonly used by merchants traveling in the Northern Lands. It leads to a town which has a festival in honor of the Hero Party liberating it.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Waal</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([565, 429], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Bredt Region</h6>
+            <p>A region with farmlands, forests and the Voll Basin where the Great Mage Flamme's notes are hidden. It is also where Eisen lives.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Bredt Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([560, 405], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Riegel Canyon</h6>
+            <p>Situated in the Central Lands. Eisen’s apprentice Stark used to reside in a village along the canyon before joining Frieren’s Party.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Riegel Canyon</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([525, 405], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Wille Region</h6>
+            <p>A region with a small town and a mountain pass inhabited by a phantom demon, Einsam.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Wille Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([500, 410], { icon: pin2 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Turk Region</h6>
+            <p>Situated in the Central Lands and containing rich farmlands, lush forests and big mountains.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Turk Region</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([470, 380], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Royal Capital</h6>
+            <p>A large city in the Central Lands that holds the King's palace. It is where the Hero Party was tasked with defeating the Demon King and the final destination at the end of their journey.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Royal Capital</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([480, 418], { icon: pin1 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Strahl</h6>
+            <p>The city is considered sacred by adherents of the Goddess of Creation, and holds sway over the economy and magic regulation of the Central and Northern Lands.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Strahl</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([495, 470], { icon: pin4 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Warm</h6>
+            <p>A trading port situated in the Central Lands. The town has many shops and houses, such as a candy shop that overlooks the sea with stunning views of the sunset.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Warm</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([590, 535], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Granz</h6>
+            <p>The Granz Channel is a body of water in the Central Lands. On the cliffs near the coast of the Granz Channel lies a small village.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Granz</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([525, 470], { icon: pin3 })
+    .addTo(map)
+    .bindPopup(
+      `
+        <div class="custom-popup">
+            <h6>Größe Forest</h6>
+            <p>Multiple rivers cross this forest, with wooden bridges both primitive and complex. Near or inside the forest lies a small village.</p>
+        </div>
+    `
+    )
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Größe Forest</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+
+  L.marker([280, 320], { icon: pin5 })
+    .addTo(map)
+
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Southern Lands</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([480, 320], { icon: pin5 })
+    .addTo(map)
+
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Central Lands</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([750, 220], { icon: pin5 })
+    .addTo(map)
+
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Northern Lands</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+  L.marker([770, 480], { icon: pin5 })
+    .addTo(map)
+
+    .bindTooltip(
+      `
+        <div class="custom-tooltip">
+            <h6>Nothern Plateau</h6>
+        </div>
+    `,
+      { permanent: false, direction: "right" }
+    );
+
   map.fitBounds(imageBounds);
 
-  // Add the image overlay
-  L.imageOverlay("img/World_map.webp", imageBounds).addTo(map); // Replace 'your-image.jpg' with your image file path
-
-  // Add a pin (marker)
-  L.marker([20, 500]) // Coordinates within the image (Y, X)
-    .addTo(map)
-    .bindPopup("This is a pin!");
-
-  map.on("enterFullscreen", function () {
-    console.log("Entered fullscreen mode");
-    alert("You are now in fullscreen mode!");
-  });
-
-  map.on("exitFullscreen", function () {
-    console.log("Exited fullscreen mode");
-    alert("You have exited fullscreen mode!");
-  });
+  L.imageOverlay("img/World_map.webp", imageBounds).addTo(map);
 </script>

@@ -30,7 +30,21 @@
       overflow-y: visible !important;
       font-family: "EB Garamond", serif;
     }
-
+    .title {
+      width: 40%;
+      background-color: #00000088;
+      border: 1px solid #754a0d;
+      background-image: url(img/bord1.png), url(img/bord2.png),
+        url(img/bord3.png), url(img/bord4.png);
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-size: 10% 55%;
+      background-repeat: no-repeat;
+    }
+    .title h4 {
+      margin: 20px;
+      color: white;
+      text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
+    }
     .row img {
       width: 200px;
       height: 200px;
@@ -275,7 +289,9 @@
     <section class="container scrollspy">
       <div class="col s12 l6 characters">
         <div class="col s12" id="hero-party">
-          <h2 class="center">HERO PARTY</h2>
+          <div class="title container">
+            <h4 class="center">Hero Party</h4>
+          </div>
           <div class="character">
             <ul class="row character center-align">
               <li class="col m6 l3 s12 center box">
@@ -574,7 +590,9 @@
           </div>
         </div>
         <div class="col s12" id="frieren-party">
-          <h2 class="center">FRIEREN'S PARTY</h2>
+          <div class="title container">
+            <h4 class="center">Frieren’s Party</h4>
+          </div>
           <div class="character">
             <ul class="row character">
               <li class="col m6 l3 s12 center box">

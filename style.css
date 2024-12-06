@@ -50,6 +50,7 @@ nav {
   backdrop-filter: blur(5px);
   z-index: 2;
 }
+
 @media screen and (max-width: 992px) {
   header {
     min-height: 500px;
