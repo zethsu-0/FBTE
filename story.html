@@ -19,7 +19,7 @@
   <body>
     <nav class="nav-wrapper">
       <div class="container">
-        <a href="index.html " class="brand-logo">
+        <a href="index.html" class="brand-logo">
           <img src="img/logoo.png" alt="" />
         </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-menu"
@@ -40,12 +40,26 @@
             <a href="map.html"><p>MAP</p></a>
           </li>
         </ul>
+
+        <div class="music-btn container">
+          <button
+            id="toggle-music"
+            class="floating-btn circle right transparent valign-wrapper material-icons white-text"
+          >music_off
+          </button>
+        </div>
+        <audio
+          id="bgmusic"
+          src="img/sunny_instrumental.mp3"
+          loop
+          autoplay
+        ></audio>
         <ul class="sidenav transparent" id="mobile-menu">
           <li>
             <a href="characters.html"><p>CHARACTERS</p></a>
           </li>
           <li>
-            <a href="story.html"><p>STORY</p></a>
+            <a href="story.html" class="current"><p>STORY</p></a>
           </li>
           <li>
             <a href="music.html"><p>MUSIC</p></a>
@@ -1064,9 +1078,11 @@
 </style>
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/materialize.min.js"></script>
+<script src="js.js"></script>
 <script>
   $(document).ready(function () {
     $(".tabs").tabs();
     $(".sidenav").sidenav();
+
   });
 </script>

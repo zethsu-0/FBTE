@@ -41,10 +41,25 @@
           <li>
             <a href="music.html"><p>MUSIC</p></a>
           </li>
-          <li class="current">
-            <a href="map.html"><p>MAP</p></a>
+          <li>
+            <a href="map.html" class="current"><p>MAP</p></a>
           </li>
         </ul>
+
+        <div class="music-btn container">
+          <button
+            id="toggle-music"
+            class="floating-btn circle right transparent valign-wrapper material-icons white-text"
+          >
+            music_off
+          </button>
+        </div>
+        <audio
+          id="bgmusic"
+          src="img/sunny_instrumental.mp3"
+          loop
+          autoplay
+        ></audio>
         <ul class="sidenav transparent" id="mobile-menu">
           <li>
             <a href="characters.html"><p>CHARACTERS</p></a>
@@ -56,7 +71,7 @@
             <a href="music.html"><p>MUSIC</p></a>
           </li>
           <li>
-            <a href="map.html"><p>MAP</p></a>
+            <a href="map.html" class="current"><p>MAP</p></a>
           </li>
         </ul>
       </div>
@@ -148,6 +163,7 @@
   @media only screen and (max-width: 993px) {
     #map {
       width: 80%;
+      height: 70vh;
     }
   }
 </style>
@@ -155,9 +171,11 @@
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/materialize.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js.js"></script>
 <script>
   $(document).ready(function () {
     $(".sidenav").sidenav();
+
   });
 </script>
 <script>

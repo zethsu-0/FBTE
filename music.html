@@ -26,8 +26,8 @@
         <a href="index.html" class="brand-logo">
           <img src="img/logoo.png" alt="" />
         </a>
-        <a href="index.html" class="sidenav-trigger" data-target="mobile-menu">
-          <i class="material-icons">menu</i>
+        <a href="#" class="sidenav-trigger" data-target="mobile-menu"
+          ><i class="material-icons">menu</i>
         </a>
 
         <ul id="nav-mobile" class="left hide-on-med-and-down">
@@ -44,6 +44,21 @@
             <a href="map.html"><p>MAP</p></a>
           </li>
         </ul>
+
+        <div class="music-btn container">
+          <button
+            id="toggle-music"
+            class="floating-btn circle right transparent valign-wrapper material-icons white-text"
+          >
+          graphic_eq
+          </button>
+        </div>
+        <audio
+          id="bgmusic"
+          src="img/sunny_instrumental.mp3"
+          loop
+          
+        ></audio>
         <ul class="sidenav transparent" id="mobile-menu">
           <li>
             <a href="characters.html"><p>CHARACTERS</p></a>
@@ -52,7 +67,7 @@
             <a href="story.html"><p>STORY</p></a>
           </li>
           <li>
-            <a href="music.html"><p>MUSIC</p></a>
+            <a href="music.html" class="current"><p>MUSIC</p></a>
           </li>
           <li>
             <a href="map.html"><p>MAP</p></a>
@@ -79,7 +94,11 @@
     <div class="container music-cont center">
       <div class="music-player container white-text">
         <div class="img-cont container">
-          <img id="song-image" src="img/Sunny.jpg" class="responsive-img materialboxed" />
+          <img
+            id="song-image"
+            src="img/Sunny.jpg"
+            class="responsive-img materialboxed"
+          />
         </div>
         <h2 id="song-title" class="center">SUNNY</h2>
         <p id="song-artist">Yorushika</p>
@@ -91,18 +110,13 @@
         <input type="range" value="0" id="progress" />
         <div class="controls">
           <button class="btn-floating btn-small teal z-depth-4 transparent">
-            <i class="fa-solid fa-backward" onclick="previousSong()"></i>
+            <i class="material-icons">skip_previous</i>
           </button>
           <button class="btn-floating btn-large teal z-depth-4 transparent">
-            <i class="fa-solid fa-play" onclick="Pause()" id="ctrlicon"></i>
+            <i class="material-icons" id="ctrlicon">play_arrow</i>
           </button>
-          <button
-            class="btn-floating btn-small pulse teal z-depth-4 transparent"
-          >
-            <i
-              class="fa-solid fa-forward addEventListener"
-              onclick="nextSong()"
-            ></i>
+          <button class="btn-floating btn-small teal z-depth-4 transparent">
+            <i class="material-icons">skip_next</i>
           </button>
         </div>
       </div>
@@ -114,7 +128,7 @@
   body {
     font-family: "EB Garamond", serif;
   }
-  .title{
+  .title {
     width: 40%;
     background-color: #00000088;
     border: 2px solid #ae6d13;
@@ -125,7 +139,7 @@
     background-repeat: no-repeat;
     margin: 10px auto;
   }
-  .title h4{
+  .title h4 {
     margin: 10px;
     color: white;
     text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
@@ -147,15 +161,15 @@
     border-radius: 10px;
     border: 2px solid #ae6d13;
   }
-  .img-cont{
-    background-image: url(img/bord1.png), url(img/bord2.png),
-        url(img/bord3.png), url(img/bord4.png);
-      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-      background-size: 50% 35%;
-      background-repeat: no-repeat;
-      padding: 20px;
-      width: 250px;
-      height: 250px;
+  .img-cont {
+    background-image: url(img/bord1.png), url(img/bord2.png), url(img/bord3.png),
+      url(img/bord4.png);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 50% 35%;
+    background-repeat: no-repeat;
+    padding: 20px;
+    width: 250px;
+    height: 250px;
   }
   #progress::-webkit-slider-runnable-track {
     width: 100%;
@@ -173,106 +187,143 @@
     margin: 0 5px;
   }
   h2 {
-    margin: 20px;  
+    margin: 20px;
   }
   .music-player p {
     font-size: 2em;
   }
-  button,.music-player p, h2 {
+  .music-cont button,
+  .music-player p,
+  h2 {
     text-shadow: teal 0 0 10px, teal 0 0 10px, white 0 0 5px;
   }
 </style>
 
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/materialize.min.js"></script>
+
 <script>
   $(document).ready(function () {
     $(".sidenav").sidenav();
     $(".materialboxed").materialbox();
-  });
 
-  const songs = [
-    {
-      title: "Sunny",
-      artist: "Yorushika",
-      src: "img/ヨルシカ - 晴る.mp3",
-      img: "img/Sunny.jpg",
-    },
-    {
-      title: "The Brave",
-      artist: "Yoasobi",
-      src: "img/The Brave.mp3",
-      img: "img/The Brave.jpg",
-    },
-    {
-      title: "Anytime Anywhere",
-      artist: "Milet",
-      src: "img/Anytime_Anywhere.mp3",
-      img: "img/Anytime_Anywhere.jpg",
-    },
-    {
-      title: "Bliss",
-      artist: "Milet",
-      src: "img/bliss.mp3",
-      img: "img/bliss.jpg",
-    },
-  ];
+    const music = $("#bgmusic")[0];
+    const button = $("#toggle-music");
 
-  let currentIndex = 0;
+    music.volume = 0.6;
 
-  const progress = document.getElementById("progress");
-  const song = document.getElementById("song");
-  const ctrlicon = document.getElementById("ctrlicon");
-  const songImage = document.getElementById("song-image");
-  const songTitle = document.getElementById("song-title");
-  const songArtist = document.getElementById("song-artist");
+    button.click(function () {
+      if (music.paused) {
+        music.play();
+        button.text("music_off");
+      } else {
+        music.pause();
+        button.text("graphic_eq");
+      }
+    });
 
-  function loadSong(index) {
-    const currentSong = songs[index];
-    song.src = currentSong.src;
-    songImage.src = currentSong.img;
-    songTitle.textContent = currentSong.title;
-    songArtist.textContent = currentSong.artist;
-    progress.value = 0;
-    song.pause(); // Ensure the song doesn't autoplay
-    ctrlicon.classList.remove("fa-pause");
-    ctrlicon.classList.add("fa-play");
-  }
+    const songs = [
+      {
+        title: "Sunny",
+        artist: "Yorushika",
+        src: "img/ヨルシカ - 晴る.mp3",
+        img: "img/Sunny.jpg",
+      },
+      {
+        title: "The Brave",
+        artist: "Yoasobi",
+        src: "img/The Brave.mp3",
+        img: "img/The Brave.jpg",
+      },
+      {
+        title: "Anytime Anywhere",
+        artist: "Milet",
+        src: "img/Anytime_Anywhere.mp3",
+        img: "img/Anytime_Anywhere.jpg",
+      },
+      {
+        title: "Bliss",
+        artist: "Milet",
+        src: "img/bliss.mp3",
+        img: "img/bliss.jpg",
+      },
+    ];
 
-  function Pause() {
-    if (ctrlicon.classList.contains("fa-pause")) {
-      song.pause();
-      ctrlicon.classList.remove("fa-pause");
-      ctrlicon.classList.add("fa-play");
-    } else {
-      song.play();
-      ctrlicon.classList.add("fa-pause");
-      ctrlicon.classList.remove("fa-play");
+    let currentIndex = 0;
+
+    const $progress = $("#progress");
+    const $song = $("#song");
+    const $ctrlicon = $("#ctrlicon");
+    const $songImage = $("#song-image");
+    const $songTitle = $("#song-title");
+    const $songArtist = $("#song-artist");
+
+    function loadSong(index) {
+      const currentSong = songs[index];
+      $song.attr("src", currentSong.src);
+      $songImage.attr("src", currentSong.img);
+      $songTitle.text(currentSong.title);
+      $songArtist.text(currentSong.artist);
+      $progress.val(0);
+      $song[0].pause(); // Ensure the song doesn't autoplay
+      $ctrlicon.text("play_arrow");
     }
+
+
+
+    function nextSong() {
+      currentIndex = (currentIndex + 1) % songs.length;
+      loadSong(currentIndex);
+    }
+
+    function previousSong() {
+      currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+      loadSong(currentIndex);
+    }
+
+    $song.on("timeupdate", function () {
+      $progress.val(this.currentTime).attr("max", this.duration);
+    });
+
+    $progress.on("change", function () {
+      $song[0].currentTime = this.value;
+      $song[0].play();
+      $ctrlicon.addClass("fa-pause").removeClass("fa-play");
+    });
+
+    function togglePause() {
+  if ($ctrlicon.text() === "pause") {
+    $song[0].pause();
+    $ctrlicon.text("play_arrow");
+  } else {
+    $song[0].play();
+    $ctrlicon.text("pause");
   }
+}
 
-  function nextSong() {
-    currentIndex = (currentIndex + 1) % songs.length;
-    loadSong(currentIndex);
-  }
-
-  function previousSong() {
-    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-    loadSong(currentIndex);
-  }
-
-  song.addEventListener("timeupdate", () => {
-    progress.value = song.currentTime;
-    progress.max = song.duration;
-  });
-
-  progress.addEventListener("change", () => {
-    song.currentTime = progress.value;
-    song.play();
-    ctrlicon.classList.add("fa-pause");
-    ctrlicon.classList.remove("fa-play");
-  });
-
-  // Initial load
+function nextSong() {
+  currentIndex = (currentIndex + 1) % songs.length;
   loadSong(currentIndex);
+}
+
+function previousSong() {
+  currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+  loadSong(currentIndex);
+}
+
+$(".controls .material-icons").eq(0).click(function () {
+  previousSong();
+});
+
+$(".controls .material-icons").eq(1).click(function () {
+  togglePause();
+});
+
+$(".controls .material-icons").eq(2).click(function () {
+  nextSong();
+});
+
+    // Initial load
+    loadSong(currentIndex);
+  });
 </script>

@@ -49,6 +49,14 @@ nav {
   position: relative;
   backdrop-filter: blur(5px);
   z-index: 2;
+
+}.music-btn{
+  position: relative;
+  top: 10px;
+}
+.music-btn button{
+  height: 40px;
+  border-color: white;
 }
 
 @media screen and (max-width: 992px) {

@@ -41,6 +41,21 @@
               <a href="map.html"><p>MAP</p></a>
             </li>
           </ul>
+
+          <div class="music-btn container">
+            <button
+              id="toggle-music"
+              class="floating-btn circle right transparent valign-wrapper material-icons white-text"
+            >
+              music_off
+            </button>
+          </div>
+          <audio
+            id="bgmusic"
+            src="img/sunny_instrumental.mp3"
+            loop
+            autoplay
+          ></audio>
           <ul class="sidenav transparent" id="mobile-menu">
             <li>
               <a href="characters.html"><p>CHARACTERS</p></a>
@@ -162,6 +177,7 @@
 </style>
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/materialize.min.js"></script>
+<script src="js.js"></script>
 <script>
   $(document).ready(function () {
     $(".sidenav").sidenav();
