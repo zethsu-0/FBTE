@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/x-icon" href="img/icon.png">
+    <link rel="icon" type="image/x-icon" href="img/icon.png" />
     <title>Frieren: Beyond The Journey's End</title>
   </head>
   <body>
@@ -727,7 +727,7 @@
             <div class="col s12" id="manga">
               <ul class="row center">
                 <li class="col s12 m6 l3 center">
-                  <a href="#"
+                  <a href="#manga1" class="modal-trigger"
                     ><div
                       class="box"
                       style="background-image: url(img/arc1.jpg)"
@@ -735,6 +735,13 @@
                       <p>Chapter 1: The Journey's End</p>
                     </div></a
                   >
+                  <div class="modal" id="manga1">
+                    <div class="modal-content">
+                      <video class="responsive-video" controls>
+                        <source src="img/hehe.mp4" type="video/mp4" />
+                      </video>
+                    </div>
+                  </div>
                 </li>
                 <li class="col s12 m6 l3 center">
                   <a href="#"
@@ -2957,8 +2964,11 @@
     font-size: 20px;
     font-weight: bold;
   }
-  .tabs .indicator{
+  .tabs .indicator {
     background-color: #ae6d13;
+  }
+  #manga1 video{
+    height: 600px;
   }
   @media only screen and (max-width: 490px) {
     .title h2 {
