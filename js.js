@@ -1,7 +1,7 @@
 const music = $("#bgmusic")[0];
 const button = $("#toggle-music");
 
-music.volume = 0.6;
+music.volume = 0;
 
 button.click(function () {
   if (music.paused) {
